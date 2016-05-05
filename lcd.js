@@ -1,81 +1,39 @@
-function printLcdDogits(input){
-    var digits = buildDigits(input);
-    var lcdDigits = buildLcdDigits(digits);
-    var lcdDigitsText = buildLcdDigitsText(lcdDigits);
+var allLcddigits = require('./fixtrues');
+
+module.exports = {
+
+printLcdDogits:function(input){
+    var digits = this.buildDigits(input);
+    var lcdDigits = this.buildLcdDigits(digits);
+    var lcdDigitsText = this.buildLcdDigitsText(lcdDigits);
     console.log(lcdDigitsText);
-}
+},
 
-function buildDigits(input){
+buildDigits:function(input){
     return input.toString().split('');
-}
+},
 
-function loadAllLcdDigits(){
-  return [
-      {
-          digit:'0',
-          lcdDigit:['._.','|.|','|_|']
-      },
-      {
-          digit:'1',
-          lcdDigit:['..|','..|','..|']
-      },
-      {
-          digit:'2',
-          lcdDigit:['._.','._|','|_.']
-      },
-      {
-          digit:'3',
-          lcdDigit:['._.','._|','._|']
-      },
-      {
-          digit:'4',
-          lcdDigit:['...','|_|','..|']
-      },
-      {
-          digit:'5',
-          lcdDigit:['._.','|_.','._|']
-      },
-      {
-          digit:'6',
-          lcdDigit:['._.','|_.','|_|']
-      },
-      {
-          digit:'7',
-          lcdDigit:['._.','..|','..|']
-      },
-      {
-          digit:'8',
-          lcdDigit:['._.','|_|','|_|']
-      },
-      {
-          digit:'9',
-          lcdDigit:['._.','|_|','._|']
-      }
-  ];
-}
-
-function buildLcdDigits(digits){
+buildLcdDigits:function(digits){
     var lcdDigits = [];
-    var allLcddigits = loadAllLcdDigits();
-    digits.forEach(function(digit){
-        var getLcdDigit = findInAllLcdDigtis(digit,allLcddigits);
-        if(getLcdDigit){
-            lcdDigits.push(getLcdDigit);
-        }
-    });
+    for (var i = 0; i < digits.length; i++) {
+      var getLcdDigit = this.findInAllLcdDigits(digits[i]);
+      if(getLcdDigit){
+          lcdDigits.push(getLcdDigit);
+      }
+    }
     return lcdDigits;
-}
+},
 
-function findInAllLcdDigtis(digit,allLcddigits){
+findInAllLcdDigits:function(digit){
     for (i = 0; i < allLcddigits.length; i++){
         if (allLcddigits[i].digit == digit){
             return allLcddigits[i];
         }
     }
     return false;
-}
+},
 
-function buildLcdDigitsText(lcdDigits){
+buildLcdDigitsText:function(lcdDigits){
     var lcdDigitsText = '';
     var firstLine = '\n';
     var secendLine = '\n';
@@ -88,7 +46,4 @@ function buildLcdDigitsText(lcdDigits){
     lcdDigitsText += firstLine + secendLine + thirdLine;
     return lcdDigitsText;
 }
-exports.printLcdDogits = printLcdDogits;
-exports.buildDigits = buildDigits;
-exports.buildLcdDigits = buildLcdDigits;
-exports.buildLcdDigitsText = buildLcdDigitsText;
+};
